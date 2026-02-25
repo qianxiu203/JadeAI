@@ -81,14 +81,15 @@ export const resumeRepository = {
   },
 
   // Section operations
-  async createSection(data: { resumeId: string; type: string; title: string; sortOrder: number; content?: unknown }) {
-    const id = crypto.randomUUID();
+  async createSection(data: { id?: string; resumeId: string; type: string; title: string; sortOrder: number; visible?: boolean; content?: unknown }) {
+    const id = data.id || crypto.randomUUID();
     await db.insert(resumeSections).values({
       id,
       resumeId: data.resumeId,
       type: data.type,
       title: data.title,
       sortOrder: data.sortOrder,
+      visible: data.visible ?? true,
       content: data.content || {},
     } as any);
     return db.select().from(resumeSections).where(eq(resumeSections.id, id)).limit(1).then((r: any[]) => r[0]);

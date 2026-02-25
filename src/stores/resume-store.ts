@@ -66,53 +66,77 @@ export const useResumeStore = create<ResumeStore>((set, get) => ({
   },
 
   updateSection: (sectionId, content) => {
-    set((state) => ({
-      sections: state.sections.map((s) =>
+    set((state) => {
+      const sections = state.sections.map((s) =>
         s.id === sectionId ? { ...s, content: { ...s.content, ...content } as SectionContent } : s
-      ),
-      isDirty: true,
-    }));
+      );
+      return {
+        sections,
+        currentResume: state.currentResume ? { ...state.currentResume, sections } : null,
+        isDirty: true,
+      };
+    });
     get()._scheduleSave();
   },
 
   updateSectionTitle: (sectionId, title) => {
-    set((state) => ({
-      sections: state.sections.map((s) =>
+    set((state) => {
+      const sections = state.sections.map((s) =>
         s.id === sectionId ? { ...s, title } : s
-      ),
-      isDirty: true,
-    }));
+      );
+      return {
+        sections,
+        currentResume: state.currentResume ? { ...state.currentResume, sections } : null,
+        isDirty: true,
+      };
+    });
     get()._scheduleSave();
   },
 
   addSection: (section) => {
-    set((state) => ({
-      sections: [...state.sections, section],
-      isDirty: true,
-    }));
+    set((state) => {
+      const sections = [...state.sections, section];
+      return {
+        sections,
+        currentResume: state.currentResume ? { ...state.currentResume, sections } : null,
+        isDirty: true,
+      };
+    });
     get()._scheduleSave();
   },
 
   removeSection: (sectionId) => {
-    set((state) => ({
-      sections: state.sections.filter((s) => s.id !== sectionId),
-      isDirty: true,
-    }));
+    set((state) => {
+      const sections = state.sections.filter((s) => s.id !== sectionId);
+      return {
+        sections,
+        currentResume: state.currentResume ? { ...state.currentResume, sections } : null,
+        isDirty: true,
+      };
+    });
     get()._scheduleSave();
   },
 
   reorderSections: (sections) => {
-    set({ sections, isDirty: true });
+    set((state) => ({
+      sections,
+      currentResume: state.currentResume ? { ...state.currentResume, sections } : null,
+      isDirty: true,
+    }));
     get()._scheduleSave();
   },
 
   toggleSectionVisibility: (sectionId) => {
-    set((state) => ({
-      sections: state.sections.map((s) =>
+    set((state) => {
+      const sections = state.sections.map((s) =>
         s.id === sectionId ? { ...s, visible: !s.visible } : s
-      ),
-      isDirty: true,
-    }));
+      );
+      return {
+        sections,
+        currentResume: state.currentResume ? { ...state.currentResume, sections } : null,
+        isDirty: true,
+      };
+    });
     get()._scheduleSave();
   },
 

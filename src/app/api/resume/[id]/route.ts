@@ -61,15 +61,40 @@ export async function PUT(
       });
     }
 
-    // Update sections if provided
+    // Sync sections: create new, update existing, delete removed
     if (sections && Array.isArray(sections)) {
+      const existingSections = resume.sections || [];
+      const existingIds = new Set(existingSections.map((s: any) => s.id));
+      const incomingIds = new Set(sections.map((s: any) => s.id));
+
+      // Delete sections that were removed by the user
+      for (const existing of existingSections) {
+        if (!incomingIds.has(existing.id)) {
+          await resumeRepository.deleteSection(existing.id);
+        }
+      }
+
       for (const section of sections) {
-        await resumeRepository.updateSection(section.id, {
-          title: section.title,
-          sortOrder: section.sortOrder,
-          visible: section.visible,
-          content: section.content,
-        });
+        if (existingIds.has(section.id)) {
+          // Update existing section
+          await resumeRepository.updateSection(section.id, {
+            title: section.title,
+            sortOrder: section.sortOrder,
+            visible: section.visible,
+            content: section.content,
+          });
+        } else {
+          // Create new section added by the user
+          await resumeRepository.createSection({
+            id: section.id,
+            resumeId: id,
+            type: section.type,
+            title: section.title,
+            sortOrder: section.sortOrder,
+            visible: section.visible,
+            content: section.content,
+          });
+        }
       }
     }
 
