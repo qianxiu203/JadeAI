@@ -2,6 +2,7 @@
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
 import { isSectionEmpty } from '../utils';
+import { AvatarImage } from '../avatar-image';
 
 export function ModernTemplate({ resume }: { resume: Resume }) {
   const personalInfo = resume.sections.find((s) => s.type === 'personal_info');
@@ -26,9 +27,7 @@ export function ModernTemplate({ resume }: { resume: Resume }) {
 
         <div className="relative flex items-center gap-6">
           {pi.avatar && (
-            <div className="shrink-0 rounded-full p-[2px]" style={{ background: 'linear-gradient(135deg, #e94560, #0f3460)' }}>
-              <img src={pi.avatar} alt="" className="h-[80px] w-[80px] rounded-full border-2 border-white/10 object-cover" />
-            </div>
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={80} className="border-2 border-white/10" wrapperClassName="shrink-0 p-[2px]" wrapperStyle={{ background: 'linear-gradient(135deg, #e94560, #0f3460)' }} />
           )}
           <div className="min-w-0 flex-1">
             <h1 className="text-3xl font-bold tracking-tight">{pi.fullName || 'Your Name'}</h1>

@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, GitHubContent, CustomContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1e3a5f';
@@ -27,7 +28,7 @@ export function ArchitectTemplate({ resume }: { resume: Resume }) {
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
             {pi.avatar && (
-              <img src={pi.avatar} alt="" className="h-16 w-16 shrink-0 object-cover" style={{ border: `2px solid ${PRIMARY}` }} />
+              <AvatarImage src={pi.avatar} size={64} avatarStyle={resume.themeConfig?.avatarStyle} className="shrink-0" style={{ border: `2px solid ${PRIMARY}` }} />
             )}
             <div>
               <h1

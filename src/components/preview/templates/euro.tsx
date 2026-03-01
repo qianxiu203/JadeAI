@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const BLUE = '#1e40af';
@@ -24,7 +25,7 @@ export function EuroTemplate({ resume }: { resume: Resume }) {
           </div>
         </div>
         {pi.avatar && (
-          <img src={pi.avatar} alt="" className="h-28 w-22 shrink-0 rounded border-2 object-cover" style={{ borderColor: BLUE }} />
+          <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={88} className="shrink-0 border-2" style={{ borderColor: BLUE }} />
         )}
       </div>
 

@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1a1a1a';
@@ -31,7 +32,7 @@ export function MagazineTemplate({ resume }: { resume: Resume }) {
       <div className="mb-6 border-b-2 pb-4" style={{ borderColor: ACCENT }}>
         <div className="flex items-end gap-4">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-20 w-20 shrink-0 rounded object-cover grayscale" />
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={80} className="shrink-0 grayscale" />
           )}
           <div>
             <h1 className="text-4xl font-black uppercase tracking-tight" style={{ color: PRIMARY, letterSpacing: '-0.02em' }}>

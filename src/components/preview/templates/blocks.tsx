@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#37352f';
@@ -31,7 +32,12 @@ export function BlocksTemplate({ resume }: { resume: Resume }) {
       <div className="mb-6">
         <div className="flex items-center gap-4">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-14 w-14 shrink-0 rounded-md object-cover" />
+            <AvatarImage
+              src={pi.avatar}
+              avatarStyle={resume.themeConfig?.avatarStyle}
+              size={56}
+              className="shrink-0"
+            />
           )}
           <div className="min-w-0 flex-1">
             <h1 className="text-2xl font-bold" style={{ color: PRIMARY }}>{pi.fullName || 'Your Name'}</h1>

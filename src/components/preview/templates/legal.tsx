@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, GitHubContent, CustomContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1a472a';
@@ -18,7 +19,7 @@ export function LegalTemplate({ resume }: { resume: Resume }) {
       {/* Header */}
       <div className="mb-6 text-center">
         {pi.avatar && (
-          <img src={pi.avatar} alt="" className="mx-auto mb-3 h-16 w-16 rounded-full object-cover" style={{ border: `2px solid ${PRIMARY}` }} />
+          <AvatarImage src={pi.avatar} size={64} avatarStyle={resume.themeConfig?.avatarStyle} className="mx-auto mb-3" style={{ border: `2px solid ${PRIMARY}` }} />
         )}
         <h1 className="text-2xl font-bold tracking-wide" style={{ color: PRIMARY }}>
           {pi.fullName || 'Your Name'}

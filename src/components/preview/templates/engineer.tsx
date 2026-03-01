@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1e293b';
@@ -20,7 +21,7 @@ export function EngineerTemplate({ resume }: { resume: Resume }) {
       <div className="px-8 py-6" style={{ background: `linear-gradient(135deg, ${PRIMARY} 0%, #334155 100%)` }}>
         <div className="flex items-center gap-5">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-16 w-16 shrink-0 rounded object-cover" style={{ border: `2px solid ${ACCENT}` }} />
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={64} className="shrink-0" style={{ border: `2px solid ${ACCENT}` }} />
           )}
           <div className="flex-1">
             <h1 className="text-2xl font-bold text-white">{pi.fullName || 'Your Name'}</h1>

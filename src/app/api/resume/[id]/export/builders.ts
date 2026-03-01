@@ -208,10 +208,20 @@ export function generateHtml(resume: ResumeWithSections, forPdf = false): string
     @media print { body { padding: 0 !important; background: white !important; } .resume-export > div { box-shadow: none !important; } }
     ${themeCSS}
     ${pdfOverrides}
+    /* Avatar style: oneInch → portrait rectangle (5:7) with small radius */
+    .resume-export[data-avatar-style="oneInch"] img[class*="object-cover"] {
+      border-radius: 4px !important;
+      aspect-ratio: 5 / 7 !important;
+      height: auto !important;
+    }
+    .resume-export[data-avatar-style="oneInch"] div:has(> img[class*="object-cover"]) {
+      border-radius: 4px !important;
+      height: auto !important;
+    }
   </style>
 </head>
 <body>
-  <div class="resume-export">
+  <div class="resume-export" data-avatar-style="${esc((resume as any).themeConfig?.avatarStyle || 'oneInch')}">
     ${bodyHtml}
   </div>
 </body>

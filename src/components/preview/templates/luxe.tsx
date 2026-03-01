@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const GOLD = '#d4af37';
@@ -29,7 +30,7 @@ export function LuxeTemplate({ resume }: { resume: Resume }) {
       <div className="mb-8 border-b-2 pb-6" style={{ borderColor: GOLD }}>
         <div className="text-center">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="mx-auto mb-3 h-20 w-20 rounded-full border-2 object-cover" style={{ borderColor: GOLD }} />
+            <AvatarImage src={pi.avatar} size={80} avatarStyle={resume.themeConfig?.avatarStyle} className="mx-auto mb-3 border-2" style={{ borderColor: GOLD }} />
           )}
           <h1 className="text-3xl font-bold tracking-wider uppercase" style={{ color: TEXT, letterSpacing: '0.15em' }}>{pi.fullName || 'Your Name'}</h1>
           {pi.jobTitle && (

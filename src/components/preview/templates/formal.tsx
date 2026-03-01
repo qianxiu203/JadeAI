@@ -2,6 +2,7 @@
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
 import { isSectionEmpty } from '../utils';
+import { AvatarImage } from '../avatar-image';
 
 const DARK_GREEN = '#004d40';
 
@@ -15,7 +16,7 @@ export function FormalTemplate({ resume }: { resume: Resume }) {
       <div className="mb-6 border-b-2 pb-4" style={{ borderColor: DARK_GREEN }}>
         <div className="flex items-center justify-center gap-4">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-16 w-16 shrink-0 rounded-full border-2 object-cover" style={{ borderColor: DARK_GREEN }} />
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={64} className="shrink-0" style={{ border: `2px solid ${DARK_GREEN}` }} />
           )}
           <div className="text-center">
             <h1 className="text-2xl font-bold" style={{ color: DARK_GREEN }}>{pi.fullName || 'Your Name'}</h1>

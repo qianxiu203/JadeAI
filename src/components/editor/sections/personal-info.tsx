@@ -2,9 +2,10 @@
 
 import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { Camera, X } from 'lucide-react';
+import { Camera, X, Circle, RectangleVertical } from 'lucide-react';
 import { EditableText } from '../fields/editable-text';
 import { FieldWrapper } from '../fields/field-wrapper';
+import { useResumeStore } from '@/stores/resume-store';
 import type { ResumeSection, PersonalInfoContent } from '@/types/resume';
 
 interface Props {
@@ -47,8 +48,23 @@ function resizeImage(file: File, maxSize: number): Promise<string> {
 
 export function PersonalInfoSection({ section, onUpdate }: Props) {
   const t = useTranslations('editor.fields');
+  const tTheme = useTranslations('themeEditor');
   const content = section.content as PersonalInfoContent;
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { currentResume } = useResumeStore();
+  const avatarStyle = currentResume?.themeConfig?.avatarStyle || 'oneInch';
+
+  const updateAvatarStyle = (style: 'circle' | 'oneInch') => {
+    if (!currentResume) return;
+    const newConfig = { ...currentResume.themeConfig, avatarStyle: style };
+    useResumeStore.setState((state) => ({
+      currentResume: state.currentResume
+        ? { ...state.currentResume, themeConfig: newConfig }
+        : null,
+      isDirty: true,
+    }));
+    useResumeStore.getState()._scheduleSave();
+  };
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -60,7 +76,7 @@ export function PersonalInfoSection({ section, onUpdate }: Props) {
 
   return (
     <div className="space-y-3">
-      {/* Avatar upload */}
+      {/* Avatar upload + style toggle */}
       <div className="flex items-center gap-3">
         <button
           type="button"
@@ -73,15 +89,40 @@ export function PersonalInfoSection({ section, onUpdate }: Props) {
             <Camera className="h-6 w-6 text-zinc-400" />
           )}
         </button>
-        {content.avatar && (
-          <button
-            type="button"
-            onClick={() => onUpdate({ avatar: '' })}
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-200 text-zinc-500 transition-colors hover:bg-zinc-300 hover:text-zinc-700 dark:bg-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-600 dark:hover:text-zinc-200"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
-        )}
+        <div className="flex flex-col gap-2">
+          {/* Segmented shape toggle */}
+          <div className="inline-flex rounded-lg bg-zinc-100 p-0.5 dark:bg-zinc-800">
+            {([
+              { value: 'circle' as const, icon: Circle, label: tTheme('avatarCircle') },
+              { value: 'oneInch' as const, icon: RectangleVertical, label: tTheme('avatarOneInch') },
+            ]).map(({ value, icon: Icon, label }) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => updateAvatarStyle(value)}
+                className={`inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2.5 py-1 text-xs transition-all duration-200 ${
+                  avatarStyle === value
+                    ? 'bg-white font-medium text-zinc-900 shadow-sm dark:bg-zinc-700 dark:text-zinc-100'
+                    : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200'
+                }`}
+              >
+                <Icon className="h-3 w-3" />
+                {label}
+              </button>
+            ))}
+          </div>
+          {/* Remove avatar */}
+          {content.avatar && (
+            <button
+              type="button"
+              onClick={() => onUpdate({ avatar: '' })}
+              className="inline-flex w-fit cursor-pointer items-center gap-1 rounded-md px-2 py-0.5 text-[11px] text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+            >
+              <X className="h-3 w-3" />
+              {t('clear')}
+            </button>
+          )}
+        </div>
         <input
           ref={fileInputRef}
           type="file"

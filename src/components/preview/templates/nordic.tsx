@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const SLATE_500 = '#64748b';
@@ -16,7 +17,13 @@ export function NordicTemplate({ resume }: { resume: Resume }) {
       {/* Header */}
       <div className="mb-8 text-center">
         {pi.avatar && (
-          <img src={pi.avatar} alt="" className="mx-auto mb-3 h-16 w-16 rounded-full object-cover" style={{ border: `2px solid ${SLATE_400}` }} />
+          <AvatarImage
+            src={pi.avatar}
+            size={64}
+            avatarStyle={resume.themeConfig?.avatarStyle}
+            className="mx-auto mb-3"
+            style={{ border: `2px solid ${SLATE_400}` }}
+          />
         )}
         <h1 className="text-2xl font-light tracking-wide" style={{ color: SLATE_500 }}>{pi.fullName || 'Your Name'}</h1>
         {pi.jobTitle && <p className="mt-1 text-sm font-light tracking-wider" style={{ color: SLATE_400 }}>{pi.jobTitle}</p>}

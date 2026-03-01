@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const SIDEBAR_BG = '#1e40af';
@@ -39,9 +40,12 @@ export function SidebarTemplate({ resume }: { resume: Resume }) {
         {/* Avatar & Name */}
         <div className="mb-6 text-center">
           {pi.avatar && (
-            <div className="mx-auto mb-3 h-24 w-24 overflow-hidden rounded-full border-3 border-white/30">
-              <img src={pi.avatar} alt="" className="h-full w-full object-cover" />
-            </div>
+            <AvatarImage
+              src={pi.avatar}
+              size={96}
+              avatarStyle={resume.themeConfig?.avatarStyle}
+              wrapperClassName="mx-auto mb-3 overflow-hidden border-3 border-white/30"
+            />
           )}
           <h1 className="text-xl font-bold tracking-tight text-white">{pi.fullName || 'Your Name'}</h1>
           {pi.jobTitle && <p className="mt-1 text-sm font-light text-blue-200">{pi.jobTitle}</p>}

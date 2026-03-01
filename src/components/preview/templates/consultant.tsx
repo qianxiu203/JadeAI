@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const GRAY_700 = '#374151';
@@ -19,7 +20,13 @@ export function ConsultantTemplate({ resume }: { resume: Resume }) {
       <div className="mb-6">
         <div className="flex items-center gap-4">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-16 w-16 shrink-0 rounded-full object-cover" style={{ border: `2px solid ${BLUE_600}` }} />
+            <AvatarImage
+              src={pi.avatar}
+              size={64}
+              avatarStyle={resume.themeConfig?.avatarStyle}
+              className="shrink-0"
+              style={{ border: `2px solid ${BLUE_600}` }}
+            />
           )}
           <div>
             <h1 className="text-2xl font-bold" style={{ color: GRAY_700 }}>{pi.fullName || 'Your Name'}</h1>

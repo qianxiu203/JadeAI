@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#881337';
@@ -29,7 +30,7 @@ export function RoseTemplate({ resume }: { resume: Resume }) {
       {/* Header */}
       <div className="mb-8 rounded-2xl px-8 py-6 text-center" style={{ backgroundColor: ROSE_50 }}>
         {pi.avatar && (
-          <img src={pi.avatar} alt="" className="mx-auto mb-3 h-20 w-20 rounded-full border-3 object-cover" style={{ borderColor: ACCENT }} />
+          <AvatarImage src={pi.avatar} size={80} avatarStyle={resume.themeConfig?.avatarStyle} className="mx-auto mb-3 border-3" style={{ borderColor: ACCENT }} />
         )}
         <h1 className="text-2xl font-semibold tracking-wide" style={{ color: PRIMARY }}>{pi.fullName || 'Your Name'}</h1>
         {pi.jobTitle && <p className="mt-1 text-sm" style={{ color: ACCENT }}>{pi.jobTitle}</p>}

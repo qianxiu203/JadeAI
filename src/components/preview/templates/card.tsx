@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#18181b';
@@ -30,7 +31,13 @@ export function CardTemplate({ resume }: { resume: Resume }) {
       {/* Header */}
       <div className="mb-6 text-center">
         {pi.avatar && (
-          <img src={pi.avatar} alt="" className="mx-auto mb-3 h-20 w-20 rounded-full object-cover" style={{ border: `3px solid ${ACCENT}` }} />
+          <AvatarImage
+            src={pi.avatar}
+            size={80}
+            avatarStyle={resume.themeConfig?.avatarStyle}
+            className="mx-auto mb-3"
+            style={{ border: `3px solid ${ACCENT}` }}
+          />
         )}
         <h1 className="text-2xl font-bold" style={{ color: PRIMARY }}>{pi.fullName || 'Your Name'}</h1>
         {pi.jobTitle && <p className="mt-1 text-sm font-medium" style={{ color: ACCENT }}>{pi.jobTitle}</p>}

@@ -152,6 +152,7 @@ export interface ThemeConfig {
   lineSpacing: number;
   margin: { top: number; right: number; bottom: number; left: number };
   sectionSpacing: number;
+  avatarStyle?: 'circle' | 'oneInch';
 }
 
 export interface Resume {

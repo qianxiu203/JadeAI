@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const NAVY = '#0f172a';
@@ -16,7 +17,13 @@ export function CorporateTemplate({ resume }: { resume: Resume }) {
       <div className="px-8 py-8" style={{ background: NAVY }}>
         <div className="flex items-center gap-5">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-20 w-20 shrink-0 rounded object-cover" style={{ border: `2px solid ${BLUE}` }} />
+            <AvatarImage
+              src={pi.avatar}
+              size={80}
+              avatarStyle={resume.themeConfig?.avatarStyle}
+              className="shrink-0"
+              style={{ border: `2px solid ${BLUE}` }}
+            />
           )}
           <div className="flex-1">
             <h1 className="text-3xl font-bold tracking-tight text-white">{pi.fullName || 'Your Name'}</h1>

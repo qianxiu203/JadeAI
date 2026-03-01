@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, GitHubContent, CustomContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#9a3412';
@@ -18,7 +19,7 @@ export function TeacherTemplate({ resume }: { resume: Resume }) {
       {/* Header */}
       <div className="mb-6 flex items-center gap-5">
         {pi.avatar && (
-          <img src={pi.avatar} alt="" className="h-18 w-18 shrink-0 rounded-full object-cover" style={{ border: `3px solid ${ACCENT}` }} />
+          <AvatarImage src={pi.avatar} size={72} avatarStyle={resume.themeConfig?.avatarStyle} className="shrink-0" style={{ border: `3px solid ${ACCENT}` }} />
         )}
         <div className="flex-1">
           <h1 className="text-2xl font-bold" style={{ color: PRIMARY }}>

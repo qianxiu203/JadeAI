@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1e293b';
@@ -35,9 +36,7 @@ export function RibbonTemplate({ resume }: { resume: Resume }) {
 
         <div className="flex items-center gap-5">
           {pi.avatar && (
-            <div className="shrink-0 rounded-full border-3 border-white/40 p-0.5">
-              <img src={pi.avatar} alt="" className="h-20 w-20 rounded-full object-cover" />
-            </div>
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={80} wrapperClassName="shrink-0 border-3 border-white/40 p-0.5" />
           )}
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-white">{pi.fullName || 'Your Name'}</h1>

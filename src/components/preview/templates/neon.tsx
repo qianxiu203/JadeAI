@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const BG = '#111827';
@@ -33,9 +34,13 @@ export function NeonTemplate({ resume }: { resume: Resume }) {
       <div className="relative px-10 py-8" style={{ borderBottom: `2px solid ${CYAN}`, boxShadow: `0 2px 20px ${CYAN}40` }}>
         <div className="flex items-center gap-5">
           {pi.avatar && (
-            <div className="shrink-0 rounded-lg p-0.5" style={{ border: `2px solid ${CYAN}`, boxShadow: `0 0 12px ${CYAN}60` }}>
-              <img src={pi.avatar} alt="" className="h-20 w-20 rounded-lg object-cover" />
-            </div>
+            <AvatarImage
+              src={pi.avatar}
+              avatarStyle={resume.themeConfig?.avatarStyle}
+              size={80}
+              wrapperClassName="shrink-0 p-0.5"
+              wrapperStyle={{ border: `2px solid ${CYAN}`, boxShadow: `0 0 12px ${CYAN}60` }}
+            />
           )}
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight" style={{ color: CYAN, textShadow: `0 0 20px ${CYAN}60` }}>

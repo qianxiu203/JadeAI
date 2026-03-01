@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 export function BoldTemplate({ resume }: { resume: Resume }) {
@@ -25,7 +26,7 @@ export function BoldTemplate({ resume }: { resume: Resume }) {
       <div className="bg-black px-8 py-8 text-white">
         <div className="flex items-center gap-5">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-20 w-20 shrink-0 rounded-full border-3 border-white object-cover" />
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={80} className="shrink-0" style={{ border: '3px solid white' }} />
           )}
           <div>
             <h1 className="text-4xl font-black tracking-tight">{pi.fullName || 'Your Name'}</h1>

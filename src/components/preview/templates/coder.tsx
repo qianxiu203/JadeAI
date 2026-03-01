@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const DARK = '#0d1117';
@@ -49,9 +50,13 @@ export function CoderTemplate({ resume }: { resume: Resume }) {
         {/* Avatar & Name */}
         <div className="mb-5">
           {pi.avatar && (
-            <div className="mb-3 h-20 w-20 overflow-hidden rounded-lg" style={{ border: `2px solid ${BORDER}` }}>
-              <img src={pi.avatar} alt="" className="h-full w-full object-cover" />
-            </div>
+            <AvatarImage
+              src={pi.avatar}
+              avatarStyle={resume.themeConfig?.avatarStyle}
+              size={80}
+              wrapperClassName="mb-3 overflow-hidden"
+              wrapperStyle={{ border: `2px solid ${BORDER}` }}
+            />
           )}
           <h1 className="text-lg font-bold" style={{ color: GREEN }}>{pi.fullName || 'Your Name'}</h1>
           {pi.jobTitle && (

@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#4c1d95';
@@ -33,9 +34,14 @@ export function WatercolorTemplate({ resume }: { resume: Resume }) {
       <div className="mb-6 rounded-2xl px-6 py-5" style={{ backgroundColor: WASH }}>
         <div className="flex items-center gap-5">
           {pi.avatar && (
-            <div className="shrink-0 rounded-full p-1" style={{ background: `linear-gradient(135deg, ${ACCENT}, ${PRIMARY})` }}>
-              <img src={pi.avatar} alt="" className="h-20 w-20 rounded-full border-2 border-white object-cover" />
-            </div>
+            <AvatarImage
+              src={pi.avatar}
+              avatarStyle={resume.themeConfig?.avatarStyle}
+              size={80}
+              className="border-2 border-white"
+              wrapperClassName="shrink-0 p-1"
+              wrapperStyle={{ background: `linear-gradient(135deg, ${ACCENT}, ${PRIMARY})` }}
+            />
           )}
           <div>
             <h1 className="text-3xl font-bold" style={{ color: PRIMARY }}>

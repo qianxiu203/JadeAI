@@ -2,6 +2,7 @@
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
 import { isSectionEmpty } from '../utils';
+import { AvatarImage } from '../avatar-image';
 
 export function MinimalTemplate({ resume }: { resume: Resume }) {
   const personalInfo = resume.sections.find((s) => s.type === 'personal_info');
@@ -13,7 +14,7 @@ export function MinimalTemplate({ resume }: { resume: Resume }) {
       <div className="mb-8">
         <div className="flex items-center gap-3">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-12 w-12 shrink-0 rounded-full object-cover" />
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={48} className="shrink-0" />
           )}
           <div>
             <h1 className="text-xl font-medium text-zinc-900">{pi.fullName || 'Your Name'}</h1>

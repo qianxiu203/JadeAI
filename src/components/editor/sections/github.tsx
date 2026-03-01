@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Plus, X, RefreshCw, Star, Code2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -93,6 +93,23 @@ export function GitHubSection({ section, onUpdate }: Props) {
       debounceTimers.current.set(item.id, timer);
     }
   };
+
+  // Auto-refresh stars for all repos on mount
+  const didAutoRefresh = useRef(false);
+  useEffect(() => {
+    if (didAutoRefresh.current) return;
+    didAutoRefresh.current = true;
+    const current = itemsRef.current;
+    current.forEach((item, index) => {
+      if (item.repoUrl && GITHUB_REPO_RE.test(item.repoUrl)) {
+        fetch(`/api/github/repo?url=${encodeURIComponent(item.repoUrl)}`)
+          .then((res) => res.ok ? res.json() : null)
+          .then((data) => { if (data) updateItem(index, { stars: data.stars }); })
+          .catch(() => {});
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="space-y-4">

@@ -2,6 +2,7 @@
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, GitHubContent, CustomContent } from '@/types/resume';
 import { isSectionEmpty } from '../utils';
+import { AvatarImage } from '../avatar-image';
 
 const CHARCOAL = '#2d3436';
 const EMERALD = '#00b894';
@@ -16,7 +17,7 @@ export function ExecutiveTemplate({ resume }: { resume: Resume }) {
       <div className="px-8 py-8" style={{ background: CHARCOAL }}>
         <div className="flex items-center gap-6">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-20 w-20 shrink-0 rounded-lg border-2 object-cover" style={{ borderColor: EMERALD }} />
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={80} className="shrink-0" style={{ border: `2px solid ${EMERALD}` }} />
           )}
           <div className="flex-1">
             <h1 className="text-3xl font-bold tracking-tight text-white">{pi.fullName || 'Your Name'}</h1>

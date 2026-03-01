@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const BLUE = '#2563eb';
@@ -37,9 +38,7 @@ export function BerlinTemplate({ resume }: { resume: Resume }) {
 
         <div className="relative flex items-center gap-6">
           {pi.avatar && (
-            <div className="shrink-0 border-4 p-0.5" style={{ borderColor: YELLOW }}>
-              <img src={pi.avatar} alt="" className="h-20 w-20 object-cover" />
-            </div>
+            <AvatarImage src={pi.avatar} size={80} avatarStyle={resume.themeConfig?.avatarStyle} wrapperClassName="shrink-0 border-4 p-0.5" wrapperStyle={{ borderColor: YELLOW }} />
           )}
           <div>
             <h1 className="text-3xl font-extrabold uppercase tracking-tight">{pi.fullName || 'Your Name'}</h1>

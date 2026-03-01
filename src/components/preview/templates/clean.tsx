@@ -14,6 +14,7 @@ import type {
   GitHubContent,
 } from '@/types/resume';
 import { isSectionEmpty } from '../utils';
+import { AvatarImage } from '../avatar-image';
 
 const BLUE = '#0066cc';
 const TEAL = '#0d9488';
@@ -28,7 +29,7 @@ export function CleanTemplate({ resume }: { resume: Resume }) {
       <div className="mb-6">
         <div className="flex items-center gap-4">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-16 w-16 shrink-0 rounded-full border-2 object-cover" style={{ borderColor: BLUE }} />
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={64} className="shrink-0" style={{ border: `2px solid ${BLUE}` }} />
           )}
           <div>
             <h1 className="text-2xl font-bold" style={{ color: BLUE }}>{pi.fullName || 'Your Name'}</h1>

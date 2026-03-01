@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1e1b4b';
@@ -36,9 +37,7 @@ export function ArtisticTemplate({ resume }: { resume: Resume }) {
 
         <div className="relative flex items-center gap-5">
           {pi.avatar && (
-            <div className="shrink-0 rounded-full p-1" style={{ border: `3px dashed ${HIGHLIGHT}` }}>
-              <img src={pi.avatar} alt="" className="h-20 w-20 rounded-full object-cover" />
-            </div>
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={80} wrapperClassName="shrink-0 p-1" wrapperStyle={{ border: `3px dashed ${HIGHLIGHT}` }} />
           )}
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight">{pi.fullName || 'Your Name'}</h1>

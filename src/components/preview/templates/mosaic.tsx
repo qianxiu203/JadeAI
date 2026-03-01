@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1e293b';
@@ -43,7 +44,13 @@ export function MosaicTemplate({ resume }: { resume: Resume }) {
       <div className="mb-6 rounded-lg p-5" style={{ background: `linear-gradient(135deg, ${TILE_COLORS[0]}15, ${TILE_COLORS[3]}15)` }}>
         <div className="flex items-center gap-4">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-18 w-18 shrink-0 rounded-lg object-cover" style={{ border: `3px solid ${TILE_COLORS[0]}` }} />
+            <AvatarImage
+              src={pi.avatar}
+              avatarStyle={resume.themeConfig?.avatarStyle}
+              size={72}
+              className="shrink-0"
+              style={{ border: `3px solid ${TILE_COLORS[0]}` }}
+            />
           )}
           <div>
             <h1 className="text-2xl font-bold" style={{ color: PRIMARY }}>{pi.fullName || 'Your Name'}</h1>

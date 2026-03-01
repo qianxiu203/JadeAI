@@ -13,6 +13,7 @@ import type {
   GitHubContent,
   CustomContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const GRADIENT = 'linear-gradient(135deg, #7c3aed 0%, #f97316 100%)';
@@ -35,9 +36,7 @@ export function CreativeTemplate({ resume }: { resume: Resume }) {
 
         <div className="relative flex items-center gap-6">
           {pi.avatar && (
-            <div className="shrink-0 rounded-2xl border-4 border-white/30 p-0.5">
-              <img src={pi.avatar} alt="" className="h-24 w-24 rounded-xl object-cover" />
-            </div>
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={96} className="shrink-0" wrapperClassName="shrink-0 p-0.5" wrapperStyle={{ border: '4px solid rgba(255,255,255,0.3)' }} />
           )}
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight">{pi.fullName || 'Your Name'}</h1>

@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const BLUE_GRAY = '#475569';
@@ -15,7 +16,7 @@ export function TimelineTemplate({ resume }: { resume: Resume }) {
       {/* Header */}
       <div className="mb-6 text-center">
         {pi.avatar && (
-          <img src={pi.avatar} alt="" className="mx-auto mb-3 h-18 w-18 rounded-full border-2 object-cover" style={{ borderColor: ACCENT }} />
+          <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={72} className="mx-auto mb-3" style={{ border: `2px solid ${ACCENT}` }} />
         )}
         <h1 className="text-2xl font-bold" style={{ color: BLUE_GRAY }}>{pi.fullName || 'Your Name'}</h1>
         {pi.jobTitle && <p className="mt-0.5 text-base" style={{ color: ACCENT }}>{pi.jobTitle}</p>}

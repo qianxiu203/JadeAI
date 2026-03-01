@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#4f46e5';
@@ -33,9 +34,12 @@ export function MaterialTemplate({ resume }: { resume: Resume }) {
       >
         <div className="flex items-center gap-6">
           {pi.avatar && (
-            <div className="shrink-0 rounded-full bg-white/20 p-1 shadow-lg">
-              <img src={pi.avatar} alt="" className="h-20 w-20 rounded-full object-cover" />
-            </div>
+            <AvatarImage
+              src={pi.avatar}
+              avatarStyle={resume.themeConfig?.avatarStyle}
+              size={80}
+              wrapperClassName="shrink-0 bg-white/20 p-1 shadow-lg"
+            />
           )}
           <div className="min-w-0 flex-1">
             <h1 className="text-3xl font-bold tracking-tight">{pi.fullName || 'Your Name'}</h1>

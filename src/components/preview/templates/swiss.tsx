@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const RED = '#dc2626';
@@ -28,7 +29,7 @@ export function SwissTemplate({ resume }: { resume: Resume }) {
       <div className="mb-8">
         <div className="flex items-start gap-6">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-16 w-16 shrink-0 object-cover grayscale" />
+            <AvatarImage src={pi.avatar} size={64} avatarStyle={resume.themeConfig?.avatarStyle} className="shrink-0 grayscale" />
           )}
           <div className="flex-1">
             <h1 className="text-3xl font-bold uppercase tracking-tight" style={{ color: TEXT }}>{pi.fullName || 'Your Name'}</h1>

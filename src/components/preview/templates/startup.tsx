@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PURPLE = '#6366f1';
@@ -17,7 +18,7 @@ export function StartupTemplate({ resume }: { resume: Resume }) {
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)' }} />
         <div className="relative flex items-center gap-5">
           {pi.avatar && (
-            <img src={pi.avatar} alt="" className="h-18 w-18 shrink-0 rounded-2xl border-2 border-white/30 object-cover" />
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={72} className="shrink-0" style={{ border: '2px solid rgba(255,255,255,0.3)' }} />
           )}
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight">{pi.fullName || 'Your Name'}</h1>

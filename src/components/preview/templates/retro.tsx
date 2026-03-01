@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#78350f';
@@ -30,7 +31,7 @@ export function RetroTemplate({ resume }: { resume: Resume }) {
       {/* Header */}
       <div className="mb-6 pb-4 text-center" style={{ borderBottom: `3px double ${PRIMARY}` }}>
         {pi.avatar && (
-          <img src={pi.avatar} alt="" className="mx-auto mb-3 h-20 w-20 rounded-full object-cover" style={{ border: `2px solid ${PRIMARY}` }} />
+          <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={80} className="mx-auto mb-3" style={{ border: `2px solid ${PRIMARY}` }} />
         )}
         <h1 className="text-3xl font-bold" style={{ color: PRIMARY, fontFamily: "'Courier New', monospace" }}>
           {pi.fullName || 'Your Name'}

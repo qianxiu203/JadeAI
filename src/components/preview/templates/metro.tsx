@@ -13,6 +13,7 @@ import type {
   CustomContent,
   GitHubContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1e293b';
@@ -29,7 +30,13 @@ export function MetroTemplate({ resume }: { resume: Resume }) {
       {/* Header */}
       <div className="mb-6 flex items-center gap-5">
         {pi.avatar && (
-          <img src={pi.avatar} alt="" className="h-16 w-16 shrink-0 object-cover" style={{ border: `3px solid ${AMBER}` }} />
+          <AvatarImage
+            src={pi.avatar}
+            avatarStyle={resume.themeConfig?.avatarStyle}
+            size={64}
+            className="shrink-0"
+            style={{ border: `3px solid ${AMBER}` }}
+          />
         )}
         <div className="min-w-0 flex-1">
           <h1 className="text-2xl font-extrabold uppercase tracking-tight" style={{ color: PRIMARY }}>{pi.fullName || 'Your Name'}</h1>

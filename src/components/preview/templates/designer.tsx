@@ -1,6 +1,7 @@
 'use client';
 
 import type { Resume, PersonalInfoContent, SummaryContent, WorkExperienceContent, EducationContent, SkillsContent, ProjectsContent, CertificationsContent, LanguagesContent, CustomContent, GitHubContent } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const CORAL = '#ff6b6b';
@@ -24,9 +25,7 @@ export function DesignerTemplate({ resume }: { resume: Resume }) {
           </div>
         </div>
         {pi.avatar && (
-          <div className="w-32 shrink-0">
-            <img src={pi.avatar} alt="" className="h-full w-full object-cover" />
-          </div>
+          <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={128} wrapperClassName="w-32 shrink-0" />
         )}
       </div>
 
