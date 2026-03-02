@@ -39,9 +39,9 @@ export function TwoColumnTemplate({ resume }: { resume: Resume }) {
           {pi.avatar && (
             <AvatarImage
               src={pi.avatar}
-              size={96}
+              size={80}
               avatarStyle={resume.themeConfig?.avatarStyle}
-              wrapperClassName="mx-auto mb-3 overflow-hidden border-3 border-white/20"
+              wrapperClassName="mx-auto mb-3 overflow-hidden rounded-lg border-2 border-white/20"
             />
           )}
           <h1 className="text-xl font-bold tracking-tight text-white">{pi.fullName || 'Your Name'}</h1>

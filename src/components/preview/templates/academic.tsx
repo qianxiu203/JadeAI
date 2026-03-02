@@ -13,6 +13,7 @@ import type {
   GitHubContent,
   CustomContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 export function AcademicTemplate({ resume }: { resume: Resume }) {
@@ -25,14 +26,22 @@ export function AcademicTemplate({ resume }: { resume: Resume }) {
     <div className="mx-auto max-w-[210mm] bg-white shadow-lg" style={{ fontFamily: '"Computer Modern", "CMU Serif", Georgia, "Times New Roman", serif' }}>
       {/* Header — LaTeX-inspired centered layout */}
       <div className="mb-6 text-center">
+        {pi.avatar && (
+          <AvatarImage
+            src={pi.avatar}
+            size={64}
+            avatarStyle={resume.themeConfig?.avatarStyle}
+            wrapperClassName="mx-auto mb-2 overflow-hidden"
+          />
+        )}
         <h1 className="text-2xl font-bold text-zinc-900" style={{ letterSpacing: '0.02em' }}>
           {pi.fullName || 'Your Name'}
         </h1>
         {pi.jobTitle && (
-          <p className="mt-0.5 text-base text-zinc-500 italic">{pi.jobTitle}</p>
+          <p className="mt-0.5 text-base text-zinc-700 italic">{pi.jobTitle}</p>
         )}
         {contacts.length > 0 && (
-          <p className="mt-1.5 text-xs text-zinc-500">
+          <p className="mt-1.5 text-xs text-zinc-600">
             {contacts.map((c, i) => (
               <span key={i}>
                 {c}{i < contacts.length - 1 ? ' \u00B7 ' : ''}
@@ -75,7 +84,7 @@ function AcademicSectionContent({ section, resume }: { section: any; resume: Res
               <div>
                 <span className="text-sm font-bold text-zinc-800">{item.position}</span>
                 {item.company && <span className="text-sm text-zinc-600">, {item.company}</span>}
-                {item.location && <span className="text-sm text-zinc-400">, {item.location}</span>}
+                {item.location && <span className="text-sm text-zinc-500">, {item.location}</span>}
               </div>
               <span className="shrink-0 text-xs text-zinc-500">{item.startDate} – {item.current ? (resume.language === 'zh' ? '至今' : 'Present') : item.endDate}</span>
             </div>
@@ -147,7 +156,7 @@ function AcademicSectionContent({ section, resume }: { section: any; resume: Res
             <div className="flex items-baseline justify-between">
               <div>
                 <span className="text-sm font-bold text-zinc-800">{item.name}</span>
-                {item.url && <span className="text-xs text-zinc-400 ml-1">[{item.url}]</span>}
+                {item.url && <span className="text-xs text-zinc-500 ml-1">[{item.url}]</span>}
               </div>
               {item.startDate && (
                 <span className="shrink-0 text-xs text-zinc-500">

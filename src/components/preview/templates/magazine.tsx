@@ -18,7 +18,7 @@ import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1a1a1a';
 const ACCENT = '#dc2626';
-const SECONDARY = '#78716c';
+const SECONDARY = '#44403c';
 
 export function MagazineTemplate({ resume }: { resume: Resume }) {
   const personalInfo = resume.sections.find((s) => s.type === 'personal_info');
@@ -32,7 +32,7 @@ export function MagazineTemplate({ resume }: { resume: Resume }) {
       <div className="mb-6 border-b-2 pb-4" style={{ borderColor: ACCENT }}>
         <div className="flex items-end gap-4">
           {pi.avatar && (
-            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={80} className="shrink-0 grayscale" />
+            <AvatarImage src={pi.avatar} avatarStyle={resume.themeConfig?.avatarStyle} size={80} className="shrink-0" />
           )}
           <div>
             <h1 className="text-4xl font-black uppercase tracking-tight" style={{ color: PRIMARY, letterSpacing: '-0.02em' }}>

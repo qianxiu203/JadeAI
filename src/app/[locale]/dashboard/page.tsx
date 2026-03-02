@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { Plus, Search, LayoutGrid, List, Sparkles, Upload } from 'lucide-react';
+import { Plus, Search, LayoutGrid, List, Sparkles, Upload, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -27,6 +27,7 @@ import { SettingsDialog } from '@/components/settings/settings-dialog';
 import { TourOverlay, type TourStepConfig } from '@/components/tour/tour-overlay';
 import { useTourStore, hasCompletedTour } from '@/stores/tour-store';
 import { cn } from '@/lib/utils';
+import { useRouter } from '@/i18n/routing';
 import type { Resume } from '@/types/resume';
 
 type SortOption = 'lastEdited' | 'created' | 'nameAsc' | 'nameDesc';
@@ -73,6 +74,7 @@ export default function DashboardPage() {
   const { openModal, activeModal, closeModal } = useUIStore();
   const { fingerprint, isLoading: fpLoading } = useFingerprint();
 
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState<SortOption>('lastEdited');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
@@ -140,6 +142,14 @@ export default function DashboardPage() {
           )}
         </div>
         <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onClick={() => router.push('/linkedin-photo')}
+            className="cursor-pointer gap-2"
+          >
+            <Camera className="h-4 w-4" />
+            {t('linkedinPhoto')}
+          </Button>
           <Button
             data-tour="dash-ai-generate"
             variant="outline"

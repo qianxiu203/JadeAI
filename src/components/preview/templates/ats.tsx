@@ -13,6 +13,7 @@ import type {
   GitHubContent,
   CustomContent,
 } from '@/types/resume';
+import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 export function AtsTemplate({ resume }: { resume: Resume }) {
@@ -23,12 +24,20 @@ export function AtsTemplate({ resume }: { resume: Resume }) {
 
   return (
     <div className="mx-auto max-w-[210mm] bg-white shadow-lg" style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
-      {/* Header — plain, no graphics */}
+      {/* Header — plain, minimal graphics */}
       <div className="mb-4 text-center">
+        {pi.avatar && (
+          <AvatarImage
+            src={pi.avatar}
+            size={64}
+            avatarStyle={resume.themeConfig?.avatarStyle}
+            wrapperClassName="mx-auto mb-2 overflow-hidden"
+          />
+        )}
         <h1 className="text-2xl font-bold text-black">{pi.fullName || 'Your Name'}</h1>
-        {pi.jobTitle && <p className="mt-0.5 text-base text-zinc-700">{pi.jobTitle}</p>}
+        {pi.jobTitle && <p className="mt-0.5 text-base text-zinc-800">{pi.jobTitle}</p>}
         {contacts.length > 0 && (
-          <p className="mt-1 text-sm text-zinc-600">
+          <p className="mt-1 text-sm text-zinc-700">
             {contacts.join(' | ')}
           </p>
         )}

@@ -17,7 +17,7 @@ import { AvatarImage } from '../avatar-image';
 import { isSectionEmpty } from '../utils';
 
 const PRIMARY = '#1c1917';
-const ACCENT = '#a8a29e';
+const ACCENT = '#44403c';
 const SUBTLE = '#f5f5f4';
 
 export function JapaneseTemplate({ resume }: { resume: Resume }) {
@@ -31,9 +31,9 @@ export function JapaneseTemplate({ resume }: { resume: Resume }) {
         {pi.avatar && (
           <AvatarImage src={pi.avatar} size={64} avatarStyle={resume.themeConfig?.avatarStyle} className="mx-auto mb-4" style={{ border: `1px solid ${ACCENT}` }} />
         )}
-        <h1 className="text-2xl font-light tracking-wide" style={{ color: PRIMARY }}>{pi.fullName || 'Your Name'}</h1>
-        {pi.jobTitle && <p className="mt-2 text-xs font-light tracking-[0.25em] uppercase" style={{ color: ACCENT }}>{pi.jobTitle}</p>}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs font-light" style={{ color: ACCENT }}>
+        <h1 className="text-2xl font-normal tracking-wide" style={{ color: PRIMARY }}>{pi.fullName || 'Your Name'}</h1>
+        {pi.jobTitle && <p className="mt-2 text-xs font-normal tracking-[0.2em] uppercase" style={{ color: PRIMARY }}>{pi.jobTitle}</p>}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs" style={{ color: PRIMARY }}>
           {pi.email && <span>{pi.email}</span>}
           {pi.phone && <span>{pi.phone}</span>}
           {pi.location && <span>{pi.location}</span>}
@@ -52,7 +52,7 @@ export function JapaneseTemplate({ resume }: { resume: Resume }) {
             {/* Section header with subtle dot */}
             <div className="mb-4 flex items-center gap-2">
               <span className="inline-block h-1 w-1 rounded-full" style={{ backgroundColor: ACCENT }} />
-              <h2 className="text-[10px] font-light uppercase tracking-[0.25em]" style={{ color: ACCENT }}>{section.title}</h2>
+              <h2 className="text-xs font-medium uppercase tracking-[0.2em]" style={{ color: PRIMARY }}>{section.title}</h2>
             </div>
             <JapaneseSectionContent section={section} lang={resume.language} />
           </div>
@@ -65,7 +65,7 @@ function JapaneseSectionContent({ section, lang }: { section: any; lang?: string
   const content = section.content;
 
   if (section.type === 'summary') {
-    return <p className="text-sm font-light leading-loose" style={{ color: '#57534e' }}>{(content as SummaryContent).text}</p>;
+    return <p className="text-sm font-light leading-loose" style={{ color: PRIMARY }}>{(content as SummaryContent).text}</p>;
   }
 
   if (section.type === 'work_experience') {
@@ -78,14 +78,14 @@ function JapaneseSectionContent({ section, lang }: { section: any; lang?: string
               <span className="shrink-0 text-[10px] font-light" style={{ color: ACCENT }}>{item.startDate} &ndash; {item.current ? (lang === 'zh' ? '至今' : 'Present') : item.endDate}</span>
             </div>
             {item.company && <p className="mt-0.5 text-xs font-light" style={{ color: ACCENT }}>{item.company}{item.location ? `, ${item.location}` : ''}</p>}
-            {item.description && <p className="mt-2 text-sm font-light leading-relaxed" style={{ color: '#57534e' }}>{item.description}</p>}
+            {item.description && <p className="mt-2 text-sm font-light leading-relaxed" style={{ color: PRIMARY }}>{item.description}</p>}
             {item.technologies?.length > 0 && (
               <p className="mt-1 text-xs font-light" style={{ color: ACCENT }}>{item.technologies.join(' \u00b7 ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-2 space-y-1">
                 {item.highlights.map((h: string, i: number) => (
-                  <li key={i} className="flex items-start gap-3 text-sm font-light" style={{ color: '#57534e' }}>
+                  <li key={i} className="flex items-start gap-3 text-sm font-light" style={{ color: PRIMARY }}>
                     <span className="mt-2 inline-block h-px w-3 shrink-0" style={{ backgroundColor: ACCENT }} />
                     {h}
                   </li>
@@ -113,7 +113,7 @@ function JapaneseSectionContent({ section, lang }: { section: any; lang?: string
             {item.highlights?.length > 0 && (
               <ul className="mt-2 space-y-1">
                 {item.highlights.map((h: string, i: number) => (
-                  <li key={i} className="flex items-start gap-3 text-sm font-light" style={{ color: '#57534e' }}>
+                  <li key={i} className="flex items-start gap-3 text-sm font-light" style={{ color: PRIMARY }}>
                     <span className="mt-2 inline-block h-px w-3 shrink-0" style={{ backgroundColor: ACCENT }} />
                     {h}
                   </li>
@@ -132,7 +132,7 @@ function JapaneseSectionContent({ section, lang }: { section: any; lang?: string
         {((content as SkillsContent).categories || []).map((cat: any) => (
           <div key={cat.id} className="flex text-sm">
             <span className="w-32 shrink-0 font-normal" style={{ color: PRIMARY }}>{cat.name}</span>
-            <span className="font-light" style={{ color: '#57534e' }}>{(cat.skills || []).join(', ')}</span>
+            <span className="font-light" style={{ color: PRIMARY }}>{(cat.skills || []).join(', ')}</span>
           </div>
         ))}
       </div>
@@ -150,14 +150,14 @@ function JapaneseSectionContent({ section, lang }: { section: any; lang?: string
                 <span className="shrink-0 text-[10px] font-light" style={{ color: ACCENT }}>{item.startDate} {'\u2013'} {item.endDate || (lang === 'zh' ? '至今' : 'Present')}</span>
               )}
             </div>
-            {item.description && <p className="mt-1 text-sm font-light leading-relaxed" style={{ color: '#57534e' }}>{item.description}</p>}
+            {item.description && <p className="mt-1 text-sm font-light leading-relaxed" style={{ color: PRIMARY }}>{item.description}</p>}
             {item.technologies?.length > 0 && (
               <p className="mt-1 text-xs font-light" style={{ color: ACCENT }}>{item.technologies.join(' \u00b7 ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-2 space-y-1">
                 {item.highlights.map((h: string, i: number) => (
-                  <li key={i} className="flex items-start gap-3 text-sm font-light" style={{ color: '#57534e' }}>
+                  <li key={i} className="flex items-start gap-3 text-sm font-light" style={{ color: PRIMARY }}>
                     <span className="mt-2 inline-block h-px w-3 shrink-0" style={{ backgroundColor: ACCENT }} />
                     {h}
                   </li>
@@ -210,7 +210,7 @@ function JapaneseSectionContent({ section, lang }: { section: any; lang?: string
               <span className="shrink-0 text-[10px] font-light" style={{ color: ACCENT }}>&#11088; {item.stars?.toLocaleString()}</span>
             </div>
             {item.language && <p className="mt-0.5 text-xs font-light" style={{ color: ACCENT }}>{item.language}</p>}
-            {item.description && <p className="mt-1 text-sm font-light leading-relaxed" style={{ color: '#57534e' }}>{item.description}</p>}
+            {item.description && <p className="mt-1 text-sm font-light leading-relaxed" style={{ color: PRIMARY }}>{item.description}</p>}
           </div>
         ))}
       </div>
@@ -229,7 +229,7 @@ function JapaneseSectionContent({ section, lang }: { section: any; lang?: string
               </div>
               {item.date && <span className="shrink-0 text-[10px] font-light" style={{ color: ACCENT }}>{item.date}</span>}
             </div>
-            {item.description && <p className="mt-1 text-sm font-light leading-relaxed" style={{ color: '#57534e' }}>{item.description}</p>}
+            {item.description && <p className="mt-1 text-sm font-light leading-relaxed" style={{ color: PRIMARY }}>{item.description}</p>}
           </div>
         ))}
       </div>
@@ -243,7 +243,7 @@ function JapaneseSectionContent({ section, lang }: { section: any; lang?: string
         {content.items.map((item: any) => (
           <div key={item.id}>
             <span className="text-sm font-normal" style={{ color: PRIMARY }}>{item.name || item.title || item.language}</span>
-            {item.description && <p className="text-sm font-light" style={{ color: '#57534e' }}>{item.description}</p>}
+            {item.description && <p className="text-sm font-light" style={{ color: PRIMARY }}>{item.description}</p>}
           </div>
         ))}
       </div>
