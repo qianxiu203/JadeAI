@@ -238,6 +238,9 @@ export async function generatePdf(html: string, options: PdfOptions = {}): Promi
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'networkidle0', timeout: 15000 });
 
+    // Wait for web fonts (e.g. Noto Sans SC) to finish loading
+    await page.evaluate(() => document.fonts.ready);
+
     if (options.fitOnePage) {
       await fitContentToOnePage(page);
     }

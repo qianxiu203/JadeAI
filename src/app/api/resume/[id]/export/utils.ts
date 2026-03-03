@@ -105,7 +105,7 @@ export function buildExportThemeCSS(theme: typeof DEFAULT_THEME, template: strin
   const primaryIsDark = isDark(theme.primaryColor);
   return `
     ${sel} > div {
-      font-family: ${theme.fontFamily}, sans-serif !important;
+      font-family: ${theme.fontFamily}, 'Noto Sans SC', sans-serif !important;
       line-height: ${theme.lineSpacing} !important;
       ${needsPadding ? `padding-top: ${m.top}px !important; padding-right: ${m.right}px !important; padding-bottom: ${m.bottom}px !important; padding-left: ${m.left}px !important;` : ''}
       --base-body-size: ${fs.body};
