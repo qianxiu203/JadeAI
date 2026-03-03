@@ -6,6 +6,9 @@ import { generateHtml } from './builders';
 import { generatePlainText } from './plain-text';
 import { generateDocx } from './docx';
 
+// Chromium download + PDF render needs more time on Vercel serverless
+export const maxDuration = 60;
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

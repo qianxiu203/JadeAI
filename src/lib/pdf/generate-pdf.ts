@@ -22,12 +22,14 @@ async function getBrowser() {
     });
   }
 
-  // Vercel serverless: use @sparticuz/chromium bundled binary
+  // Vercel serverless: use @sparticuz/chromium-min (downloads binary at runtime)
   if (process.env.VERCEL) {
-    const chromium = await import('@sparticuz/chromium');
+    const chromium = await import('@sparticuz/chromium-min');
     return puppeteer.launch({
       args: chromium.default.args,
-      executablePath: await chromium.default.executablePath(),
+      executablePath: await chromium.default.executablePath(
+        'https://github.com/Sparticuz/chromium/releases/download/v143.0.4/chromium-v143.0.4-pack.x64.tar',
+      ),
       headless: true,
     });
   }
