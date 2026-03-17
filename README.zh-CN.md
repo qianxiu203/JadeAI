@@ -58,6 +58,14 @@
 |:---:|
 | ![二维码模块](images/二维码.png) |
 
+## 部署视频
+
+在 Bilibili 观看完整部署教程：
+
+[![部署视频](https://i0.hdslb.com/bfs/archive/deployment-preview.jpg)](https://www.bilibili.com/video/BV1h7wQzSEYe/)
+
+> [前往 Bilibili 观看 →](https://www.bilibili.com/video/BV1h7wQzSEYe/)
+
 ## 功能特性
 
 ### 简历编辑

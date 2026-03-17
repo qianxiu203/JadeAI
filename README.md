@@ -58,6 +58,14 @@ Join our groups for discussion and support:
 |:---:|
 | ![QR Code Section](images/二维码.png) |
 
+## Deployment Video
+
+Watch the full deployment walkthrough on Bilibili:
+
+[![Deployment Video](https://i0.hdslb.com/bfs/archive/deployment-preview.jpg)](https://www.bilibili.com/video/BV1h7wQzSEYe/)
+
+> [Watch on Bilibili →](https://www.bilibili.com/video/BV1h7wQzSEYe/)
+
 ## Features
 
 ### Resume Editing
