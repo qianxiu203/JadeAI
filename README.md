@@ -22,6 +22,8 @@ Build professional resumes with drag-and-drop editing, real-time AI optimization
 
 Join our groups for discussion and support:
 
+[![Linux.do](https://img.shields.io/badge/Linux.do-Community-blue)](https://linux.do/)
+
 | QQ Group | WeChat Group | Lark Group |
 |:---:|:---:|:---:|
 | <img src="images/chat-group.jpg" width="200" alt="QQ Group QR Code" /> | <img src="images/wchat-group.jpg" width="200" alt="WeChat Group QR Code" /> | <img src="images/lark-chat.png" width="200" alt="Lark Group QR Code" /> |
