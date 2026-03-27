@@ -124,7 +124,7 @@ export function InterviewRoom({ sessionId, initialMessages }: InterviewRoomProps
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-3" style={{ height: 'calc(100vh - 180px)' }}>
       <ProgressBar />
-      <InterviewerBanner config={interviewerConfig} />
+      <InterviewerBanner config={interviewerConfig} questionCount={messages.filter((m) => m.role === 'assistant').length} />
       <MessageList messages={messages} interviewerConfig={interviewerConfig} />
       {isLoading && (
         <p className="px-4 text-sm text-zinc-400">{t('generating')}</p>

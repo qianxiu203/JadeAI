@@ -7,11 +7,12 @@ import type { InterviewerConfig } from '@/types/interview';
 
 interface InterviewerBannerProps {
   config: InterviewerConfig;
+  questionCount: number;
 }
 
-export function InterviewerBanner({ config }: InterviewerBannerProps) {
+export function InterviewerBanner({ config, questionCount }: InterviewerBannerProps) {
   const t = useTranslations('interview.interviewers');
-  const { rounds, currentRoundIndex, questionCount } = useInterviewStore();
+  const { rounds, currentRoundIndex } = useInterviewStore();
   const currentRound = rounds[currentRoundIndex];
 
   return (
