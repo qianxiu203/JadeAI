@@ -37,13 +37,13 @@ export function useInterviewControls({ sessionId, roundId, lastAssistantMessageI
   const handleSkip = async () => {
     if (lastAssistantMessageId) addSkipped(lastAssistantMessageId);
     await sendControl('skip');
-    onTriggerAI('[跳过此题]');
+    onTriggerAI('这个问题我暂时没有太好的思路，能换一个问题吗？');
   };
 
   const handleHint = async () => {
     if (lastAssistantMessageId) addHinted(lastAssistantMessageId);
     await sendControl('hint');
-    onTriggerAI('[请求提示]');
+    onTriggerAI('这个问题我不太确定方向，能给我一些思路上的引导吗？');
   };
 
   const handleEndRound = async () => {
