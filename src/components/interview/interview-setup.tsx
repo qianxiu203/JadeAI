@@ -52,14 +52,25 @@ export function InterviewSetup() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8">
-      <h1 className="text-2xl font-bold">{t('title')}</h1>
-      <JDInput value={jd} onChange={setJd} />
-      <ResumeSelector value={resumeId} onChange={setResumeId} />
-      <InterviewerPicker selected={selectedInterviewers} onChange={setSelectedInterviewers} />
-      <Button onClick={handleStart} disabled={!canStart || isCreating} className="w-full" size="lg">
-        {isCreating ? '...' : t('startInterview')}
-      </Button>
+    <div className="mx-auto max-w-2xl">
+      <div className="mb-6 bg-gradient-to-r from-pink-50 to-white rounded-xl px-6 py-5 dark:from-pink-950/30 dark:to-zinc-900">
+        <h1 className="text-xl font-bold">🎙️ {t('title')}</h1>
+      </div>
+      <div className="space-y-6 px-1">
+        <JDInput value={jd} onChange={setJd} />
+        <ResumeSelector value={resumeId} onChange={setResumeId} />
+        <InterviewerPicker selected={selectedInterviewers} onChange={setSelectedInterviewers} />
+      </div>
+      <div className="mt-8 px-1">
+        <Button
+          onClick={handleStart}
+          disabled={!canStart || isCreating}
+          className="w-full rounded-xl bg-gradient-to-r from-zinc-900 to-zinc-800 py-6 text-base font-semibold hover:from-zinc-800 hover:to-zinc-700 dark:from-zinc-100 dark:to-zinc-200 dark:text-zinc-900"
+          size="lg"
+        >
+          {isCreating ? '...' : t('startInterview')}
+        </Button>
+      </div>
     </div>
   );
 }

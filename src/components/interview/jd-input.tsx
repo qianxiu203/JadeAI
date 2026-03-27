@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 
 const MAX_JD_LENGTH = 5000;
 
@@ -15,15 +14,18 @@ export function JDInput({ value, onChange }: JDInputProps) {
   const t = useTranslations('interview.setup');
 
   return (
-    <div className="space-y-2">
-      <Label>{t('jdLabel')}</Label>
+    <div>
+      <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
+        <span className="flex h-5 w-5 items-center justify-center rounded-md bg-pink-500 text-[10px] font-bold text-white">1</span>
+        {t('jdLabel')}
+      </div>
       <Textarea
         value={value}
         onChange={(e) => onChange(e.target.value.slice(0, MAX_JD_LENGTH))}
         placeholder={t('jdPlaceholder')}
-        className="min-h-[200px] resize-y"
+        className="min-h-[120px] resize-y rounded-xl bg-zinc-50 dark:bg-zinc-800/50"
       />
-      <p className="text-right text-xs text-zinc-400">
+      <p className="mt-1 text-right text-[10px] text-zinc-300 dark:text-zinc-600">
         {t('jdCharCount', { count: value.length })}
       </p>
     </div>

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -32,10 +31,13 @@ export function ResumeSelector({ value, onChange }: ResumeSelectorProps) {
   }, []);
 
   return (
-    <div className="space-y-2">
-      <Label>{t('resumeLabel')}</Label>
+    <div>
+      <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
+        <span className="flex h-5 w-5 items-center justify-center rounded-md bg-zinc-400 text-[10px] font-bold text-white dark:bg-zinc-600">2</span>
+        {t('resumeLabel')}
+      </div>
       <Select value={value || '_none'} onValueChange={(v) => onChange(v === '_none' ? undefined : v)}>
-        <SelectTrigger>
+        <SelectTrigger className="rounded-xl">
           <SelectValue placeholder={t('resumePlaceholder')} />
         </SelectTrigger>
         <SelectContent>
@@ -47,7 +49,7 @@ export function ResumeSelector({ value, onChange }: ResumeSelectorProps) {
           ))}
         </SelectContent>
       </Select>
-      <p className="text-xs text-zinc-400">{t('resumeHint')}</p>
+      <p className="mt-1 text-xs text-zinc-400">{t('resumeHint')}</p>
     </div>
   );
 }

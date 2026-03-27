@@ -2,8 +2,6 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import { Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import { InterviewerCard } from './interviewer-card';
 import { CustomInterviewerDialog } from './custom-interviewer-dialog';
 import { getPresetInterviewers } from '@/lib/interview/interviewers';
@@ -38,10 +36,12 @@ export function InterviewerPicker({ selected, onChange }: InterviewerPickerProps
   };
 
   return (
-    <div className="space-y-2">
-      <Label>{t('interviewerLabel')}</Label>
-      <p className="text-xs text-zinc-400">{t('interviewerHint')}</p>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div>
+      <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
+        <span className={`flex h-5 w-5 items-center justify-center rounded-md text-[10px] font-bold text-white ${selected.length > 0 ? 'bg-pink-500' : 'bg-zinc-400 dark:bg-zinc-600'}`}>3</span>
+        {t('interviewerLabel')}
+      </div>
+      <div className="flex gap-2 overflow-x-auto pb-2">
         {allInterviewers.map((interviewer) => {
           const selectedIndex = selected.findIndex((s) => s.type === interviewer.type);
           return (
@@ -54,16 +54,16 @@ export function InterviewerPicker({ selected, onChange }: InterviewerPickerProps
             />
           );
         })}
+        <CustomInterviewerDialog
+          onAdd={handleAddCustom}
+          trigger={
+            <div className="flex min-w-[100px] cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-zinc-300 p-3 transition-colors hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50">
+              <Plus className="h-5 w-5 text-zinc-300 dark:text-zinc-600" />
+              <span className="mt-1 text-[10px] text-zinc-400">{t('customInterviewer')}</span>
+            </div>
+          }
+        />
       </div>
-      <CustomInterviewerDialog
-        onAdd={handleAddCustom}
-        trigger={
-          <Button variant="outline" size="sm">
-            <Plus className="mr-1 h-3 w-3" />
-            {t('customInterviewer')}
-          </Button>
-        }
-      />
     </div>
   );
 }
