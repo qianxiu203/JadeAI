@@ -3,7 +3,7 @@
 import { use, useEffect, useState } from 'react';
 import { InterviewReportView } from '@/components/interview/interview-report';
 import { Skeleton } from '@/components/ui/skeleton';
-import { getAIHeaders } from '@/stores/settings-store';
+import { useSettingsStore, getAIHeaders } from '@/stores/settings-store';
 import type { InterviewReport, InterviewSession } from '@/types/interview';
 
 export default function ReportPage({ params }: { params: Promise<{ id: string }> }) {
@@ -11,8 +11,11 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   const [report, setReport] = useState<InterviewReport | null>(null);
   const [session, setSession] = useState<InterviewSession | null>(null);
   const [loading, setLoading] = useState(true);
+  const hydrated = useSettingsStore((s) => s._hydrated);
 
   useEffect(() => {
+    if (!hydrated) return;
+
     const fp = localStorage.getItem('jade_fingerprint');
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -43,7 +46,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
         console.error(err);
         setLoading(false);
       });
-  }, [id]);
+  }, [id, hydrated]);
 
   if (loading) {
     return (
