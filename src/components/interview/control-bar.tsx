@@ -1,8 +1,9 @@
 'use client';
 
 import { useTranslations, useLocale } from 'next-intl';
-import { SkipForward, Lightbulb, Bookmark, StopCircle, Pause } from 'lucide-react';
+import { SkipForward, Lightbulb, Bookmark, BookmarkCheck, Square, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useInterviewStore } from '@/stores/interview-store';
 import { getAIHeaders } from '@/stores/settings-store';
 
@@ -13,7 +14,36 @@ interface ControlBarProps {
   isLoading: boolean;
 }
 
-export function ControlBar({ sessionId, roundId, lastAssistantMessageId, isLoading }: ControlBarProps) {
+interface IconBtnProps {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+  variant?: 'destructive';
+}
+
+function IconBtn({ icon: Icon, label, onClick, disabled, variant }: IconBtnProps) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon"
+          className={`h-8 w-8 ${variant === 'destructive' ? 'border-red-200 text-red-500 hover:bg-red-50 dark:border-red-800 dark:hover:bg-red-950' : ''}`}
+          onClick={onClick}
+          disabled={disabled}
+        >
+          <Icon className="h-3.5 w-3.5" />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="top">
+        <p>{label}</p>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+export function useInterviewControls({ sessionId, roundId, lastAssistantMessageId, isLoading }: ControlBarProps) {
   const t = useTranslations('interview.room');
   const locale = useLocale();
   const { markedMessages, toggleMark, addHinted, addSkipped } = useInterviewStore();
@@ -64,28 +94,25 @@ export function ControlBar({ sessionId, roundId, lastAssistantMessageId, isLoadi
     });
   };
 
-  return (
-    <div className="flex flex-wrap gap-2">
-      <Button variant="outline" size="sm" onClick={handleSkip} disabled={isLoading}>
-        <SkipForward className="mr-1 h-3 w-3" />
-        {t('skip')}
-      </Button>
-      <Button variant="outline" size="sm" onClick={handleHint} disabled={isLoading}>
-        <Lightbulb className="mr-1 h-3 w-3" />
-        {t('hint')}
-      </Button>
-      <Button variant="outline" size="sm" onClick={handleMark} disabled={!lastAssistantMessageId}>
-        <Bookmark className="mr-1 h-3 w-3" />
-        {isMarked ? t('unmark') : t('mark')}
-      </Button>
-      <Button variant="outline" size="sm" onClick={handleEndRound} disabled={isLoading}>
-        <StopCircle className="mr-1 h-3 w-3" />
-        {t('endRound')}
-      </Button>
-      <Button variant="ghost" size="sm" onClick={handlePause}>
-        <Pause className="mr-1 h-3 w-3" />
-        {t('pause')}
-      </Button>
+  const left = (
+    <div className="flex gap-1">
+      <IconBtn icon={SkipForward} label={t('skip')} onClick={handleSkip} disabled={isLoading} />
+      <IconBtn icon={Lightbulb} label={t('hint')} onClick={handleHint} disabled={isLoading} />
+      <IconBtn
+        icon={isMarked ? BookmarkCheck : Bookmark}
+        label={isMarked ? t('unmark') : t('mark')}
+        onClick={handleMark}
+        disabled={!lastAssistantMessageId}
+      />
     </div>
   );
+
+  const right = (
+    <div className="flex gap-1">
+      <IconBtn icon={Square} label={t('endRound')} onClick={handleEndRound} disabled={isLoading} variant="destructive" />
+      <IconBtn icon={Pause} label={t('pause')} onClick={handlePause} />
+    </div>
+  );
+
+  return { left, right };
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Send } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -10,29 +10,41 @@ interface MessageInputProps {
   isLoading: boolean;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  leftControls?: React.ReactNode;
+  rightControls?: React.ReactNode;
 }
 
-export function MessageInput({ input, isLoading, onChange, onSubmit }: MessageInputProps) {
+export function MessageInput({ input, isLoading, onChange, onSubmit, leftControls, rightControls }: MessageInputProps) {
   const t = useTranslations('interview.room');
 
   return (
-    <form onSubmit={onSubmit} className="flex gap-2">
-      <Textarea
-        value={input}
-        onChange={onChange}
-        placeholder={t('inputPlaceholder')}
-        disabled={isLoading}
-        className="min-h-[60px] flex-1 resize-none"
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
-            e.preventDefault();
-            onSubmit(e as any);
-          }
-        }}
-      />
-      <Button type="submit" disabled={!input.trim() || isLoading} size="icon" className="h-[60px] w-[60px]">
-        <Send className="h-4 w-4" />
-      </Button>
+    <form onSubmit={onSubmit} className="flex items-end gap-2">
+      {leftControls}
+      <div className="relative flex-1">
+        <Textarea
+          value={input}
+          onChange={onChange}
+          placeholder={t('inputPlaceholder')}
+          disabled={isLoading}
+          className="min-h-[44px] resize-none rounded-xl pr-12"
+          rows={1}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+              e.preventDefault();
+              onSubmit(e as any);
+            }
+          }}
+        />
+        <Button
+          type="submit"
+          disabled={!input.trim() || isLoading}
+          size="icon"
+          className="absolute bottom-1.5 right-1.5 h-8 w-8 rounded-lg bg-pink-500 hover:bg-pink-600"
+        >
+          <ArrowUp className="h-4 w-4" />
+        </Button>
+      </div>
+      {rightControls}
     </form>
   );
 }

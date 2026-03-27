@@ -10,7 +10,7 @@ import { ProgressBar } from './progress-bar';
 import { InterviewerBanner } from './interviewer-banner';
 import { MessageList } from './message-list';
 import { MessageInput } from './message-input';
-import { ControlBar } from './control-bar';
+import { useInterviewControls } from './control-bar';
 import { RoundTransition } from './round-transition';
 import type { InterviewerConfig } from '@/types/interview';
 
@@ -66,10 +66,19 @@ export function InterviewRoom({ sessionId }: InterviewRoomProps) {
     router.push(`/interview/${sessionId}/report`);
   }, [sessionId, router, setIsGeneratingReport]);
 
+  const lastAssistantMsg = [...messages].reverse().find((m) => m.role === 'assistant');
+
+  // Hook must be called unconditionally before any early returns
+  const controls = useInterviewControls({
+    sessionId,
+    roundId: currentRound?.id ?? '',
+    lastAssistantMessageId: lastAssistantMsg?.id,
+    isLoading,
+  });
+
   if (!currentRound) return null;
 
   const isLastRound = currentRoundIndex >= rounds.length - 1;
-  const lastAssistantMsg = [...messages].reverse().find((m) => m.role === 'assistant');
 
   if (showTransition) {
     const nextRound = rounds[currentRoundIndex + 1];
@@ -77,7 +86,7 @@ export function InterviewRoom({ sessionId }: InterviewRoomProps) {
       <div className="mx-auto max-w-4xl space-y-4">
         <ProgressBar />
         <RoundTransition
-          nextInterviewer={nextRound?.interviewerConfig as InterviewerConfig || interviewerConfig}
+          nextInterviewer={(nextRound?.interviewerConfig as InterviewerConfig) || interviewerConfig}
           onContinue={isLastRound ? handleGenerateReport : handleNextRound}
           isLastRound={isLastRound}
         />
@@ -93,18 +102,14 @@ export function InterviewRoom({ sessionId }: InterviewRoomProps) {
       {isLoading && (
         <p className="px-4 text-sm text-zinc-400">{t('generating')}</p>
       )}
-      <div className="space-y-3 border-t pt-3">
-        <ControlBar
-          sessionId={sessionId}
-          roundId={currentRound.id}
-          lastAssistantMessageId={lastAssistantMsg?.id}
-          isLoading={isLoading}
-        />
+      <div className="pb-2">
         <MessageInput
           input={input}
           isLoading={isLoading}
           onChange={handleInputChange}
           onSubmit={handleSubmit}
+          leftControls={controls.left}
+          rightControls={controls.right}
         />
       </div>
     </div>
