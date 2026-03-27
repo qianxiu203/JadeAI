@@ -12,6 +12,7 @@ import {
   Languages,
   FileText,
   SpellCheck,
+  Mic,
   Upload,
   Download,
   type LucideIcon,
@@ -24,6 +25,7 @@ const FEATURES = [
   { key: 'export', icon: ArrowDownUp },
   { key: 'sharing', icon: Share2 },
   { key: 'jdMatch', icon: FileSearch },
+  { key: 'mockInterview', icon: Mic },
   { key: 'translate', icon: Languages },
   { key: 'coverLetter', icon: FileText },
   { key: 'grammarCheck', icon: SpellCheck },
@@ -365,6 +367,54 @@ function DemoGrammarCheck() {
   );
 }
 
+function DemoMockInterview() {
+  return (
+    <div className="flex h-full flex-col justify-center gap-3 p-6">
+      {/* Interviewer card */}
+      <div
+        className="flex items-center gap-3 rounded-xl border border-pink-100 bg-pink-50/50 p-3 dark:border-pink-900 dark:bg-pink-950/20"
+        style={{ animation: 'demo-slide-up 0.4s ease-out both' }}
+      >
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-pink-400 text-sm font-bold text-white">
+          李
+        </div>
+        <div>
+          <div className="text-xs font-semibold">李雯 · HR总监</div>
+          <div className="text-[10px] text-zinc-400">温和友善，关注动机与匹配度</div>
+        </div>
+      </div>
+      {/* Interviewer question */}
+      <div style={{ animation: 'demo-slide-up 0.4s ease-out 0.5s both' }}>
+        <div className="max-w-[85%] rounded-r-2xl border-l-[3px] border-pink-500 bg-white px-3 py-2 text-xs text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+          能分享一下是什么契机让你决定从前端转向 AI 方向？
+        </div>
+      </div>
+      {/* User answer */}
+      <div className="flex justify-end" style={{ animation: 'demo-slide-up 0.4s ease-out 1s both' }}>
+        <div className="max-w-[70%] rounded-2xl rounded-tr-none bg-gradient-to-br from-zinc-900 to-zinc-800 px-3 py-2 text-xs text-white">
+          看到 AI 在提效方面的巨大潜力...
+        </div>
+      </div>
+      {/* Wave thinking */}
+      <div className="flex items-center gap-2" style={{ animation: 'demo-slide-up 0.4s ease-out 1.5s both' }}>
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-pink-400 text-[10px] font-bold text-white">
+          李
+        </div>
+        <div className="flex items-end gap-[2px]">
+          {[0, 0.15, 0.3, 0.45, 0.6].map((d, i) => (
+            <span
+              key={i}
+              className="inline-block w-[2.5px] rounded-sm bg-pink-500"
+              style={{ height: '10px', animation: `thinkingWave 1.2s ease-in-out ${d}s infinite`, opacity: i % 2 === 0 ? 1 : 0.5 }}
+            />
+          ))}
+          <span className="ml-1 text-[10px] text-zinc-400">思考中...</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const DEMO_MAP: Record<string, React.FC> = {
   aiChat: DemoAiChat,
   templates: DemoTemplates,
@@ -372,6 +422,7 @@ const DEMO_MAP: Record<string, React.FC> = {
   export: DemoExport,
   sharing: DemoSharing,
   jdMatch: DemoJdMatch,
+  mockInterview: DemoMockInterview,
   translate: DemoTranslate,
   coverLetter: DemoCoverLetter,
   grammarCheck: DemoGrammarCheck,

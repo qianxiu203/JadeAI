@@ -65,19 +65,25 @@ export function LandingHeader() {
           <Image src="/logo.svg" alt="JadeAI" width={120} height={36} priority />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          <a
-            href="#features"
-            className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+        <nav className="hidden items-center gap-1 md:flex">
+          {[
+            { href: '#features', label: t('features') },
+            { href: '#templates', label: t('templates') },
+          ].map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="rounded-md px-3 py-1.5 text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            >
+              {item.label}
+            </a>
+          ))}
+          <Link
+            href="/interview"
+            className="rounded-md px-3 py-1.5 text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
           >
-            {t('features')}
-          </a>
-          <a
-            href="#templates"
-            className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-          >
-            {t('templates')}
-          </a>
+            {t('interview')}
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -113,20 +119,26 @@ export function LandingHeader() {
             <SheetContent side="right" className="w-64">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
               <nav className="mt-8 flex flex-col gap-4">
-                <a
-                  href="#features"
+                {[
+                  { href: '#features', label: t('features') },
+                  { href: '#templates', label: t('templates') },
+                ].map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+                <Link
+                  href="/interview"
                   onClick={() => setOpen(false)}
                   className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
                 >
-                  {t('features')}
-                </a>
-                <a
-                  href="#templates"
-                  onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
-                >
-                  {t('templates')}
-                </a>
+                  {t('interview')}
+                </Link>
                 <Button
                   asChild
                   className="mt-4 cursor-pointer bg-pink-500 text-white hover:bg-pink-600"

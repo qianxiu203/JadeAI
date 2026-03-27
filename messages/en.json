@@ -588,6 +588,7 @@
     "header": {
       "features": "Features",
       "templates": "Templates",
+      "interview": "Mock Interview",
       "getStarted": "Get Started",
       "dashboard": "Dashboard"
     },
@@ -627,6 +628,10 @@
       "jdMatch": {
         "title": "JD Match Analysis",
         "description": "Paste a job description and get an instant match score with actionable suggestions to improve your resume."
+      },
+      "mockInterview": {
+        "title": "Mock Interview",
+        "description": "AI-powered mock interviews based on JD. 6 preset interviewer roles with smart follow-ups, detailed report and improvement plan."
       },
       "translate": {
         "title": "AI Translation",

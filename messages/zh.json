@@ -588,6 +588,7 @@
     "header": {
       "features": "功能特色",
       "templates": "模板库",
+      "interview": "模拟面试",
       "getStarted": "立即开始",
       "dashboard": "工作台"
     },
@@ -627,6 +628,10 @@
       "jdMatch": {
         "title": "JD 匹配",
         "description": "粘贴职位描述，即刻获取匹配评分和优化建议，精准提升简历竞争力。"
+      },
+      "mockInterview": {
+        "title": "模拟面试",
+        "description": "基于 JD 的 AI 模拟面试，6 种预设面试官角色，智能追问，面试结束后生成详细报告和改进建议。"
       },
       "translate": {
         "title": "AI 翻译",
