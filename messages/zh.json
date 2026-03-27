@@ -780,6 +780,8 @@
       "interviewerLabel": "选择面试官",
       "interviewerHint": "拖拽调整面试顺序，至少选择一位面试官",
       "customInterviewer": "自定义面试官",
+      "titleLabel": "面试标题",
+      "titlePlaceholder": "如：高级前端工程师面试",
       "startInterview": "开始面试",
       "custom": {
         "title": "自定义面试官",

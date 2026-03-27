@@ -780,6 +780,8 @@
       "interviewerLabel": "Select Interviewers",
       "interviewerHint": "Drag to reorder. Select at least one interviewer.",
       "customInterviewer": "Custom Interviewer",
+      "titleLabel": "Interview Title",
+      "titlePlaceholder": "e.g., Senior Frontend Engineer Interview",
       "startInterview": "Start Interview",
       "custom": {
         "title": "Custom Interviewer",

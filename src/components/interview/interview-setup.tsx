@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { JDInput } from './jd-input';
 import { ResumeSelector } from './resume-selector';
 import { InterviewerPicker } from './interviewer-picker';
@@ -13,6 +14,7 @@ import type { InterviewerConfig } from '@/types/interview';
 export function InterviewSetup() {
   const t = useTranslations('interview.setup');
   const router = useRouter();
+  const [title, setTitle] = useState('');
   const [jd, setJd] = useState('');
   const [resumeId, setResumeId] = useState<string | undefined>();
   const [selectedInterviewers, setSelectedInterviewers] = useState<InterviewerConfig[]>([]);
@@ -35,7 +37,7 @@ export function InterviewSetup() {
         },
         body: JSON.stringify({
           jobDescription: jd,
-          jobTitle: jd.split('\n')[0].slice(0, 100) || 'Interview',
+          jobTitle: title.trim() || jd.split('\n')[0].slice(0, 100) || 'Interview',
           resumeId,
           interviewers: selectedInterviewers,
         }),
@@ -53,10 +55,23 @@ export function InterviewSetup() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <div className="mb-6 bg-gradient-to-r from-pink-50 to-white rounded-xl px-6 py-5 dark:from-pink-950/30 dark:to-zinc-900">
+      <div className="mb-6 rounded-xl bg-gradient-to-r from-pink-50 to-white px-6 py-5 dark:from-pink-950/30 dark:to-zinc-900">
         <h1 className="text-xl font-bold">🎙️ {t('title')}</h1>
       </div>
       <div className="space-y-6 px-1">
+        {/* Title input */}
+        <div>
+          <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
+            <span className="flex h-5 w-5 items-center justify-center rounded-md bg-pink-500 text-[10px] font-bold text-white">0</span>
+            {t('titleLabel')}
+          </div>
+          <Input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder={t('titlePlaceholder')}
+            className="rounded-xl"
+          />
+        </div>
         <JDInput value={jd} onChange={setJd} />
         <ResumeSelector value={resumeId} onChange={setResumeId} />
         <InterviewerPicker selected={selectedInterviewers} onChange={setSelectedInterviewers} />
