@@ -18,7 +18,15 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const rounds = await interviewRepository.findRoundsBySessionId(id);
   const report = await interviewRepository.findReportBySessionId(id);
 
-  return NextResponse.json({ session, rounds, report });
+  // Include messages for each round (needed for resume/history)
+  const roundsWithMessages = await Promise.all(
+    rounds.map(async (round: any) => {
+      const messages = await interviewRepository.findMessagesByRoundId(round.id);
+      return { ...round, messages };
+    })
+  );
+
+  return NextResponse.json({ session, rounds: roundsWithMessages, report });
 }
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

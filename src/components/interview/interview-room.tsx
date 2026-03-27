@@ -2,10 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import type { UIMessage } from 'ai';
 import { useRouter } from '@/i18n/routing';
 import { useInterviewStore } from '@/stores/interview-store';
 import { useInterviewChat } from '@/hooks/use-interview-chat';
 import { useSettingsStore } from '@/stores/settings-store';
+import { INIT_TRIGGER } from '@/lib/interview/constants';
 import { ProgressBar } from './progress-bar';
 import { InterviewerBanner } from './interviewer-banner';
 import { MessageList } from './message-list';
@@ -16,9 +18,10 @@ import type { InterviewerConfig } from '@/types/interview';
 
 interface InterviewRoomProps {
   sessionId: string;
+  initialMessages?: UIMessage[];
 }
 
-export function InterviewRoom({ sessionId }: InterviewRoomProps) {
+export function InterviewRoom({ sessionId, initialMessages }: InterviewRoomProps) {
   const t = useTranslations('interview.room');
   const router = useRouter();
   const { rounds, currentRoundIndex, advanceToNextRound, setIsGeneratingReport } =
@@ -28,19 +31,34 @@ export function InterviewRoom({ sessionId }: InterviewRoomProps) {
   const currentRound = rounds[currentRoundIndex];
   const interviewerConfig = currentRound?.interviewerConfig as InterviewerConfig;
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading, resetMessages, sendMessage } =
+  const { messages, input, handleInputChange, handleSubmit, isLoading, resetMessages, sendMessage, setMessages } =
     useInterviewChat({
       sessionId,
       roundId: currentRound?.id || '',
       selectedModel: useSettingsStore.getState().aiModel,
     });
 
-  // Auto-send first message to get interviewer's opening (guard against StrictMode double-fire)
+  // Load initial messages from DB on first render
+  const loadedRef = useRef(false);
+  useEffect(() => {
+    if (initialMessages && initialMessages.length > 0 && !loadedRef.current) {
+      loadedRef.current = true;
+      setMessages(initialMessages);
+    }
+  }, [initialMessages, setMessages]);
+
+  // Auto-send trigger to start interview (only if no history exists)
   const sentInitRef = useRef<string | null>(null);
   useEffect(() => {
-    if (currentRound && messages.length === 0 && !isLoading && sentInitRef.current !== currentRound.id) {
+    if (
+      currentRound &&
+      messages.length === 0 &&
+      !isLoading &&
+      !loadedRef.current &&
+      sentInitRef.current !== currentRound.id
+    ) {
       sentInitRef.current = currentRound.id;
-      sendMessage({ text: '你好，我准备好了，请开始面试。' });
+      sendMessage({ text: INIT_TRIGGER });
     }
   }, [currentRound?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -59,6 +77,9 @@ export function InterviewRoom({ sessionId }: InterviewRoomProps) {
     setShowTransition(false);
     advanceToNextRound();
     resetMessages();
+    // Reset init refs so the next round can auto-trigger
+    loadedRef.current = false;
+    sentInitRef.current = null;
   }, [advanceToNextRound, resetMessages]);
 
   const handleGenerateReport = useCallback(async () => {
