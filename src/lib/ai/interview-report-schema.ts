@@ -24,7 +24,7 @@ const roundEvaluationSchema = z.object({
 const dimensionScoreSchema = z.object({
   dimension: z.string().describe('Dimension name'),
   score: z.number().min(0).max(100).describe('Score for this dimension'),
-  maxScore: z.literal(100).describe('Max score is always 100'),
+  maxScore: z.number().describe('Max score, always 100'),
 });
 
 const improvementItemSchema = z.object({
