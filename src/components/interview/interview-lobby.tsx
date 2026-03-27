@@ -5,14 +5,26 @@ import { useTranslations } from 'next-intl';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { InterviewCard } from './interview-card';
 import { Link } from '@/i18n/routing';
 import type { InterviewSession } from '@/types/interview';
 
 export function InterviewLobby() {
   const t = useTranslations('interview.lobby');
+  const tc = useTranslations('common');
   const [sessions, setSessions] = useState<InterviewSession[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
     const fp = localStorage.getItem('jade_fingerprint');
@@ -25,14 +37,15 @@ export function InterviewLobby() {
       .finally(() => setLoading(false));
   }, []);
 
-  const handleDelete = async (id: string) => {
-    if (!confirm(t('deleteConfirm'))) return;
+  const handleDelete = async () => {
+    if (!deleteId) return;
     const fp = localStorage.getItem('jade_fingerprint');
-    await fetch(`/api/interview/${id}`, {
+    await fetch(`/api/interview/${deleteId}`, {
       method: 'DELETE',
       headers: fp ? { 'x-fingerprint': fp } : {},
     });
-    setSessions((prev) => prev.filter((s) => s.id !== id));
+    setSessions((prev) => prev.filter((s) => s.id !== deleteId));
+    setDeleteId(null);
   };
 
   return (
@@ -60,10 +73,25 @@ export function InterviewLobby() {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {sessions.map((session) => (
-            <InterviewCard key={session.id} session={session} onDelete={handleDelete} />
+            <InterviewCard key={session.id} session={session} onDelete={setDeleteId} />
           ))}
         </div>
       )}
+
+      <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{tc('delete')}</AlertDialogTitle>
+            <AlertDialogDescription>{t('deleteConfirm')}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{tc('cancel')}</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
+              {tc('delete')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
