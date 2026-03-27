@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import { useInterviewStore } from '@/stores/interview-store';
@@ -35,9 +35,11 @@ export function InterviewRoom({ sessionId }: InterviewRoomProps) {
       selectedModel: useSettingsStore.getState().aiModel,
     });
 
-  // Auto-send first message to get interviewer's opening
+  // Auto-send first message to get interviewer's opening (guard against StrictMode double-fire)
+  const sentInitRef = useRef<string | null>(null);
   useEffect(() => {
-    if (currentRound && messages.length === 0 && !isLoading) {
+    if (currentRound && messages.length === 0 && !isLoading && sentInitRef.current !== currentRound.id) {
+      sentInitRef.current = currentRound.id;
       sendMessage({ text: '你好，我准备好了，请开始面试。' });
     }
   }, [currentRound?.id]); // eslint-disable-line react-hooks/exhaustive-deps
