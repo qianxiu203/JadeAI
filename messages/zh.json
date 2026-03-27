@@ -24,6 +24,7 @@
     "agreeTerms": "登录即表示你同意我们的服务条款和隐私政策"
   },
   "dashboard": {
+    "nav": "工作台",
     "title": "我的简历",
     "createResume": "新建简历",
     "createResumeDescription": "从空白模板开始创建新简历",

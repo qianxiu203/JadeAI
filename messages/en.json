@@ -24,6 +24,7 @@
     "agreeTerms": "By signing in, you agree to our Terms of Service and Privacy Policy"
   },
   "dashboard": {
+    "nav": "Dashboard",
     "title": "My Resumes",
     "createResume": "New Resume",
     "createResumeDescription": "Start from a blank template",
